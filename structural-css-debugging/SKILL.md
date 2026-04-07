@@ -1,146 +1,58 @@
 ---
 name: structural-css-debugging
-description: Use when the user asked for help with a CSS layout bug, or when you are implementing a layout with complex structure/behaviors. If you are a small model, read @structural-css-debugging-concise.md instead of this one.
+description: Use when debugging a CSS layout bug, box-model mismatch, or DOM structure problem that keeps breaking under CSS tweaks. If you need the short version, read @structural-css-debugging-concise.md instead.
 ---
 
-# Structural CSS debugging
+# Structural CSS Debugging
 
-**NEVER** tweak CSS back and forth blindly.  
-If you find yourself editing classes multiple times to “try one more thing”, **STOP IMMEDIATELY**.
+## Overview
 
-**DO NOT** use visual skills (e.g. playwright) for decision-making here.  
-Visual inspection can confirm symptoms, but it often hides the real DOM/layout cause.
+Think in boxes, not classes. Most layout bugs are structural: the DOM is split wrong, a wrapper is redundant, or transient state is fighting normal flow.
 
----
+**Core principle:** give the browser the correct DOM first; only then tune CSS.
 
-## THINK IN BOXES, NOT CLASSES
+## When to Use
 
-Before touching CSS, answer these questions:
+- A CSS layout bug keeps coming back after tweaks
+- The DOM structure looks suspicious or over-wrapped
+- You need to decide whether to change markup or styling first
+- Visual inspection shows symptoms but not the root cause
 
-1. **What boxes does the browser think exist here?**
-2. **Which box boundary is causing the bug?**
-3. **Is this boundary necessary, or is it redundant?**
-4. **Should this content really be split into multiple elements at all?**
+Do **not** use this skill to keep retrying visual-only CSS changes.
 
-Most CSS/debug failures happen because you are solving the wrong problem:
+## Core Pattern
 
-- You think a rule is missing
-- But actually an extra wrapper is present
-- Or two pieces that should be one text flow were split into separate layout units
-- Or one transient state was incorrectly kept in normal flow
+Before changing CSS, answer:
 
-**Always inspect the DOM structure first.**
+1. What boxes does the browser think exist here?
+2. Which box boundary is causing the bug?
+3. Is this boundary necessary, or is it redundant?
+4. Should this content really be split into multiple elements at all?
 
-The main question is not:
+The common failure modes are:
 
-> “What CSS should I add?”
+- an extra wrapper makes the browser create the wrong boxes
+- two pieces that should flow together were split into separate elements
+- transient UI state was left in normal document flow
+- a utility-class pile is hiding the structural bug instead of fixing it
 
-The main question is:
+Prefer the smallest structural fix:
 
-> “What DOM would let the browser solve this naturally?”
-
----
-
-## DOM-FIRST PRINCIPLES
-
-### 1. Prefer natural flow over forced layout
-
-If the content is conceptually one sentence / one label-value pair / one inline unit,
-let it stay in the same natural text flow.
-Do **not** immediately reach for:
-
-- `flex`
-- `inline-flex`
-- `grid`
-- `inline-block`
-- `whitespace-nowrap`
-unless you can clearly explain **why the normal flow is insufficient**.
-
-### 2. Separate normal content from exceptional state
-
-Keep the **main content** in ordinary document flow.
-Only isolate the truly exceptional parts:
-
-- copied state
-- hover overlays
-- badges
-- temporary indicators
-- decorative layers
-
-A strong pattern is:
-
-- primary content stays natural
-- transient state uses `absolute`, overlay, opacity, or pointer-events tricks
-
-### 3. Look for redundancy, not absence
-
-Ask:
-
-- Which wrapper exists only to make styling easier?
-- Which element exists only because I assumed I needed another box?
-- Which layout container is compensating for a bad DOM split?
-Very often the correct fix is:
 - remove a wrapper
 - merge two nodes into one flow
-- move the positioned element deeper
-- let one element own the interaction
+- move overlays deeper
+- let the semantic element own the interaction
 
-### 4. Never “glue” broken structure with stronger CSS
+If you are tempted to add `nowrap`, `inline-flex`, `grid`, or more wrappers, pause and re-check the DOM first.
 
-If two things keep splitting apart, do **not** immediately try:
+## Quick Reference
 
-- stronger `nowrap`
-- more `inline-flex`
-- larger wrappers
-- tighter spacing hacks
+1. Read the actual DOM, not just JSX.
+2. Check browser rules for inline flow, wrapping, sizing, and positioning.
+3. Change structure first, then simplify CSS.
+4. If stuck, ask for raw HTML and computed styles.
 
-That often creates the opposite bug:
-
-- now it never wraps
-- or overflows
-- or becomes impossible to adapt responsively
-
-If you are “gluing” elements together with CSS, you should suspect the DOM is wrong.
-
----
-
-## THE PROCESS
-
-### Step 1: Identify the real layout unit
-
-Write down:
-
-- What should wrap together?
-- What should be allowed to wrap internally?
-- What should never affect layout?
-
-Example:
-
-- Prompt + value may be one logical phrase
-- But the whole phrase should still wrap with the parent
-- A temporary “Copied!” state should not push layout
-
-### Step 2: Read the actual DOM
-
-Do not trust JSX at a glance.  
-
-Look at:
-
-- raw HTML
-- nesting
-- inline vs block vs positioned elements
-- where text nodes actually exist
-- which element owns the interaction
-
-Ask:
-
-- Are there two inline boxes where there should be one text flow?
-- Is a temporary state sitting in normal flow when it should be overlaid?
-- Did I create a wrapper only to style something that should have stayed plain text?
-
-### Step 3: Compare against browser rules
-
-Search official docs / MDN for:
+Useful browser concepts to search when needed:
 
 - inline formatting context
 - whitespace handling
@@ -148,69 +60,42 @@ Search official docs / MDN for:
 - flex item sizing
 - inline-block behavior
 - absolute positioning
-Do not search “how to fix this exact Tailwind issue” first.  
-Search the underlying layout model first.
 
-### Step 4: Change structure, then style
+## Common Mistakes
 
-Try the smallest DOM change that fixes the root cause.
-Good fixes often look like:
+- Tweaking classes repeatedly to “try one more thing”
+- Using stronger CSS to glue broken structure together
+- Reaching for visual tools before checking the DOM
+- Assuming the first layout theory is correct
+- Focusing on the symptom instead of the box boundary that causes it
 
-- merge two siblings into one interactive element
-- move absolute overlay inside the text owner
+## Implementation
+
+- Inspect raw HTML, nesting, and text-node boundaries.
+- Search official docs or MDN for the underlying layout model.
+- If the issue remains unclear, ask for computed `display`, `white-space`, and `position` values.
+
+Look for a fix that changes structure before style:
+
 - remove a wrapper
-- move style responsibility to the element that already owns semantics
+- merge siblings that should behave as one unit
+- move overlays inside the element that owns the text
+- move style responsibility to the element with the right semantics
 
-Bad fixes often look like:
+## Common Questions
 
-- add more utility classes to fight previous utility classes
-- stack `nowrap`, `max-w`, `inline-flex`, `overflow-hidden`
-- create more containers just to align text
+- Which boundary is wrong?
+- Does the whole unit fail to wrap, or do two parts split apart?
+- What does the raw HTML look like?
+- What are the computed `display`, `white-space`, and `position` values?
 
----
+## When Stuck
 
-## NEVER TRUST YOUR FIRST JUDGMENT
+If the issue persists after a few structural attempts, stop and gather evidence:
 
-If the issue is tricky, your first idea is probably incomplete.
-Before deciding, use these steps to gather evidence:
+1. Ask for raw HTML.
+2. Ask for computed styles.
+3. Ask which boundary is actually wrong.
+4. Search for a similar working pattern in the codebase.
 
-- consult the user
-- ask for raw HTML
-- ask for computed CSS
-- search official references (MDN, specs)
-- search the codebase for working structural analogies
-
-Do not wait for the user to prove you wrong.
-Assume your first theory is weak until supported by evidence.
-
----
-
-## WHEN STUCK FOR TOO LONG
-
-If the issue persists after multiple structural attempts, stop.
-Follow this process:
-
-1. Halt further edits.
-2. Ask the user for concrete browser evidence.
-3. Ask for:
-   - raw HTML
-   - computed styles
-   - line-break behavior description
-   - which exact boundary is wrong
-4. Give them targeted search keywords if external references may help.
-
-Useful prompts to ask the user:
-
-- “Which exact boundary is breaking incorrectly?”
-- “Does the whole unit fail to wrap, or do two parts split apart?”
-- “What does the raw HTML look like?”
-- “Which element becomes a separate box in the browser?”
-- “What is the computed `display` / `white-space` / `position` value?”
-
----
-
-## GOLDEN RULES
-
-1. Let the browser do the layout.
-2. Your job is not to overpower it with CSS.
-3. Your job is to give it the correct DOM.
+Do not keep editing blindly once the DOM picture is unclear.
