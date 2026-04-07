@@ -1,4 +1,7 @@
-# [manual-frontend-qa-mode]
+---
+name: manual-frontend-qa
+description: Use when the user asks to not perform automated frontend testing; the requirement is not valuable enough to justify the effort of writing automated tests; or the environment does not support automated testing.
+---
 
 **MANUAL FRONTEND QA MODE ENABLED**.
 

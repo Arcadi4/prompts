@@ -1,6 +1,9 @@
-# [css-debug-mode]
+---
+name: structural-css-debugging
+description: Use when the user asked for help with a CSS layout bug, or when you are implementing a layout with complex structure/behaviors. If you are a small model, read @structural-css-debugging-concise.md instead of this one.
+---
 
-**CSS DEBUG MODE ENABLED**.
+# Structural CSS debugging
 
 **NEVER** tweak CSS back and forth blindly.  
 If you find yourself editing classes multiple times to “try one more thing”, **STOP IMMEDIATELY**.
@@ -10,7 +13,7 @@ Visual inspection can confirm symptoms, but it often hides the real DOM/layout c
 
 ---
 
-## THINK IN TERMS OF BOXES, NOT CLASSES
+## THINK IN BOXES, NOT CLASSES
 
 Before touching CSS, answer these questions:
 
@@ -101,9 +104,9 @@ If you are “gluing” elements together with CSS, you should suspect the DOM i
 
 ---
 
-## DEBUGGING PROCESS
+## THE PROCESS
 
-### Phase 1: Identify the real layout unit
+### Step 1: Identify the real layout unit
 
 Write down:
 
@@ -117,7 +120,7 @@ Example:
 - But the whole phrase should still wrap with the parent
 - A temporary “Copied!” state should not push layout
 
-### Phase 2: Read the actual DOM
+### Step 2: Read the actual DOM
 
 Do not trust JSX at a glance.  
 
@@ -135,7 +138,7 @@ Ask:
 - Is a temporary state sitting in normal flow when it should be overlaid?
 - Did I create a wrapper only to style something that should have stayed plain text?
 
-### Phase 3: Compare against browser rules
+### Step 3: Compare against browser rules
 
 Search official docs / MDN for:
 
@@ -148,7 +151,7 @@ Search official docs / MDN for:
 Do not search “how to fix this exact Tailwind issue” first.  
 Search the underlying layout model first.
 
-### Phase 4: Change structure, then style
+### Step 4: Change structure, then style
 
 Try the smallest DOM change that fixes the root cause.
 Good fixes often look like:
@@ -169,12 +172,12 @@ Bad fixes often look like:
 ## NEVER TRUST YOUR FIRST JUDGMENT
 
 If the issue is tricky, your first idea is probably incomplete.
-Before deciding:
+Before deciding, use these steps to gather evidence:
 
 - consult the user
 - ask for raw HTML
 - ask for computed CSS
-- search official references (MDN, spec)
+- search official references (MDN, specs)
 - search the codebase for working structural analogies
 
 Do not wait for the user to prove you wrong.

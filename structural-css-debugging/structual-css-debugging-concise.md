@@ -1,6 +1,9 @@
-# [css-debug-mode]
+---
+name: structural-css-debugging-concise
+description: Use when you have a written implementation plan to execute in a separate session with review checkpoints.
+---
 
-**CSS DEBUG MODE ENABLED.**
+# Structural CSS debugging
 
 Do **not** tweak CSS back and forth.  
 If you edit classes repeatedly to “try one more thing”, **STOP**.
