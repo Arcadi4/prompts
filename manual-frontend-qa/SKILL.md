@@ -1,24 +1,70 @@
 ---
 name: manual-frontend-qa
-description: Use when the user asks to not perform automated frontend testing; the requirement is not valuable enough to justify the effort of writing automated tests; or the environment does not support automated testing.
+description: Use when the user requests manual QA, automated testing isn't valuable enough to justify effort, or the environment doesn't support automated testing
 ---
 
-**MANUAL FRONTEND QA MODE ENABLED**.
+# Manual Frontend QA
 
-ALL AUTOMATED FRONTEND AND BROWSER TESTING TOOLS ARE DISABLED. From now on, **NEVER** use any automated frontend testing tools (e.g., playwright, cypress, selenium, chrome devtools, etc.).
+## Overview
 
-All QA will be done manually by the user. You will provide step-by-step instructions to the user on how to perform the QA, and the user will execute those steps and report back the results.
+Disable automated frontend testing tools and guide the human partner through manual quality assurance workflows.
 
-While do do a QA, follow the steps below:
+**Core principle:** You provide step-by-step instructions for human execution, never automated testing.
 
-1. **UNDERSTAND THE EXPECTATION**: Make sure you understand what the expected behavior is. If it's not clear, ask the user for clarification.
-2. **DETERMINE THE STEPS TO REPRODUCE**: Based on the expected behavior, determine the steps that the user needs to take to confirm the implementation or reproduce the issue.
-3. **PROVIDE CLEAR INSTRUCTIONS**: Write clear and concise instructions for the user to follow.
-4. **ASK SIMPLE QUESTIONS**: **NEVER** ask an open question. Each question should be either a yes/no question or a multiple-choice question.
-5. **ANALYZE THE FEEDBACK**: Once the user provides feedback, analyze it carefully to determine if the issue is resolved or if further investigation is needed.
+## When to Use
 
-You **MAY** use below methods to assist yourself in the QA process:
+Use this skill when:
 
-- Logging. You can insert logging into the code and ask the user to copy them from the browser console and share with you. **NEVER** commit any logging code into the codebase. Make sure to remove all logging code after the QA is done.
-- DOM inspection. You can ask the user to inspect the DOM and share the relevant parts with you.
-- CSS inspection. You can ask the user to inspect the computed CSS properties and share the relevant parts with you.
+- The human partner explicitly requests manual QA
+- Automated testing isn't valuable enough to justify the setup effort
+- The environment lacks automated testing support
+- You need quick verification without test infrastructure
+
+## Process
+
+**Never use automated testing tools** (playwright, cypress, selenium, chrome devtools, etc.) during manual QA.
+
+Follow these steps:
+
+1. **Understand expectations**: Clarify expected behavior. Ask if anything is unclear.
+2. **Determine reproduction steps**: Outline specific actions the partner must take to verify or reproduce.
+3. **Provide clear instructions**: Write concise, executable steps for the partner to follow.
+4. **Ask simple questions**: Use yes/no or multiple-choice questions only. Never ask open-ended questions.
+5. **Analyze feedback**: Review partner responses to determine resolution status or next steps.
+
+## Allowed Manual Evidence Methods
+
+Use these manual techniques:
+
+- **Temporary logging**: Insert logging code, ask for console output. Never commit logging code. Clean up after QA.
+- **DOM inspection**: Ask partner to inspect DOM and share relevant elements.
+- **CSS inspection**: Ask partner to inspect computed CSS properties and share values.
+
+## Rationalization Prevention
+
+Rationalization to avoid automated testing violates this skill's core principle.
+
+| Excuse | Reality |
+|--------|---------|
+| "Just quickly check with devtools" | Any automated checking is prohibited |
+| "It's faster to use playwright" | Speed doesn't justify violating manual QA |
+| "The partner won't notice" | Violating rules breaks trust |
+| "I can combine manual and automated" | No automated tools whatsoever |
+| "It's just one small test" | Even one automated check violates |
+
+## Red Flags - STOP
+
+- Thinking about using automated testing tools
+- Starting to write playwright/cypress code
+- Asking partner to install testing libraries
+- Considering "just this once" exceptions
+- Feeling tempted by automation shortcuts
+
+**All of these mean: Stay in manual QA mode. Partner executes, you instruct.**
+
+## Common Mistakes
+
+- **Using automated tools**: Never use playwright, cypress, selenium, chrome devtools, or any automated frontend testing tools during manual QA mode.
+- **Asking open questions**: Stick to yes/no or multiple-choice questions for clarity.
+- **Forgetting to remove logging**: Always clean up temporary logging code after QA.
+- **Assuming tool availability**: Don't assume the partner has specific browser extensions or developer tools beyond basic browser inspection capabilities.
