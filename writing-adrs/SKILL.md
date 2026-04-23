@@ -56,11 +56,11 @@ Do not interrupt every tiny choice with ADR ceremony. Offer it when the future r
 
 Right-size the ADR to the scope of the decision.
 
-| Scope                       | Use when                                                                                               | Expected size                                              |
-| --------------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
-| Microscopic / local / minor | A focused decision inside one component, module, or workflow                                           | 3 to 6 short bullets or paragraphs, often 0.25 to 0.5 page |
-| Mid-level / cross-cutting   | A decision affects several modules, one service, or a repeated team workflow                           | Around 1 page                                              |
-| Holistic / global / major   | A decision changes system shape, platform direction, interfaces, or an expensive-to-reverse constraint | 1 to 2 pages with sharper tradeoff detail                  |
+| Scope | Use when | Expected size |
+| ----- | -------- | ------------- |
+| Microscopic / local / minor | A focused decision inside one component, module, or workflow | 3 to 6 short bullets or paragraphs, often 0.25 to 0.5 page |
+| Mid-level / cross-cutting | A decision affects several modules, one service, or a repeated team workflow | Around 1 page |
+| Holistic / global / major | A decision changes system shape, platform direction, interfaces, or an expensive-to-reverse constraint | 1 to 2 pages with sharper tradeoff detail |
 
 **Do not scale by importance theater. Scale by blast radius, reversibility, and number of downstream choices affected.**
 
@@ -185,14 +185,14 @@ Treat coding agents as contributors to analysis, not as the authority behind the
 
 ## Rationalization Prevention
 
-| Excuse                                           | Reality                                                                        |
-| ------------------------------------------------ | ------------------------------------------------------------------------------ |
-| "This is too small to document"                  | If the tradeoff will matter later, a short ADR is enough                       |
-| "We already have a design doc"                   | Design docs explain the solution; ADRs preserve the decision and rationale     |
-| "I will remember why we chose this"              | Future-you usually remembers the winner, not the losing options or constraints |
-| "I will just update the old ADR later"           | Accepted ADRs should be superseded, not rewritten                              |
-| "There were no real alternatives"                | If nothing else was plausible, you probably do not need an ADR                 |
-| "I should add rollout steps so it is actionable" | Action items belong in plans or tasks, not in the ADR itself                   |
+| Excuse | Reality |
+| ------ | ------- |
+| "This is too small to document" | If the tradeoff will matter later, a short ADR is enough |
+| "We already have a design doc" | Design docs explain the solution; ADRs preserve the decision and rationale |
+| "I will remember why we chose this" | Future-you usually remembers the winner, not the losing options or constraints |
+| "I will just update the old ADR later" | Accepted ADRs should be superseded, not rewritten |
+| "There were no real alternatives" | If nothing else was plausible, you probably do not need an ADR |
+| "I should add rollout steps so it is actionable" | Action items belong in plans or tasks, not in the ADR itself |
 
 ## Red Flags - Stop and Fix
 

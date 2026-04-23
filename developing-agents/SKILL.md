@@ -38,16 +38,16 @@ Before writing adapters, read the actual provider message format instead of gues
 - Typical shape: chat-completions/messages or responses-style structured input
 - Common concepts: `messages`, assistant `tool_calls`, tool messages with `tool_call_id`, streaming deltas, finish reasons
 - Docs:
-    - https://platform.openai.com/docs/api-reference/chat
-    - https://platform.openai.com/docs/guides/function-calling
+  - <https://platform.openai.com/docs/api-reference/chat>
+  - <https://platform.openai.com/docs/guides/function-calling>
 
 ### Anthropic-style APIs
 
 - Typical shape: `messages` array with structured content blocks
 - Common concepts: `tool_use`, `tool_result`, block-based content instead of plain assistant/tool strings
 - Docs:
-    - https://docs.anthropic.com/en/api/messages
-    - https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview
+  - <https://docs.anthropic.com/en/api/messages>
+  - <https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview>
 
 ### Practical rule
 
@@ -245,15 +245,15 @@ Do not jump directly from final symptom to upstream blame.
 
 Before claiming the integration works, verify all of these:
 
-| Case                      | Must pass                                   |
-| ------------------------- | ------------------------------------------- |
-| Plain text, no tools      | Assistant returns normal output             |
-| First-turn tool call      | Correct tool name, id, and input            |
-| Tool result replay        | Assistant continues correctly on next turn  |
-| Resumed/persisted history | Replayed tool call + result still work      |
-| Streaming tool path       | Same semantics as non-streaming             |
-| Tool error path           | Correct error propagation and loop behavior |
-| Multi-tool environment    | No synthetic id/name confusion              |
+| Case | Must pass |
+| ---- | --------- |
+| Plain text, no tools | Assistant returns normal output |
+| First-turn tool call | Correct tool name, id, and input |
+| Tool result replay | Assistant continues correctly on next turn |
+| Resumed/persisted history | Replayed tool call + result still work |
+| Streaming tool path | Same semantics as non-streaming |
+| Tool error path | Correct error propagation and loop behavior |
+| Multi-tool environment | No synthetic id/name confusion |
 
 If you only verified first-turn tool calling, you did not verify the agent.
 

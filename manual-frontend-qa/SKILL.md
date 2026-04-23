@@ -45,13 +45,13 @@ Use these manual techniques:
 
 Rationalization to avoid automated testing violates this skill's core principle.
 
-| Excuse                               | Reality                                   |
-| ------------------------------------ | ----------------------------------------- |
-| "Just quickly check with devtools"   | Any automated checking is prohibited      |
-| "It's faster to use playwright"      | Speed doesn't justify violating manual QA |
-| "The partner won't notice"           | Violating rules breaks trust              |
-| "I can combine manual and automated" | No automated tools whatsoever             |
-| "It's just one small test"           | Even one automated check violates         |
+| Excuse | Reality |
+| ------ | ------- |
+| "Just quickly check with devtools" | Any automated checking is prohibited |
+| "It's faster to use playwright" | Speed doesn't justify violating manual QA |
+| "The partner won't notice" | Violating rules breaks trust |
+| "I can combine manual and automated" | No automated tools whatsoever |
+| "It's just one small test" | Even one automated check violates |
 
 ## Red Flags - STOP
 

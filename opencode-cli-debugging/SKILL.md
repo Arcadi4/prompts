@@ -163,13 +163,13 @@ If you only inspect the provider response or only inspect the CLI output, you mi
 
 ## Quick Reference
 
-| Problem                             | First place to inspect                             |
-| ----------------------------------- | -------------------------------------------------- |
-| Wrong/unavailable tool name         | Provider response parsing and replay serialization |
-| Tool ran but assistant stayed empty | Follow-up message schema and agent-loop boundary   |
-| Unit tests pass but OpenCode fails  | Real `opencode run --format json` path             |
-| Session looks incomplete            | `session_info` + `session_read` + proxy logs       |
-| Proxy changes not taking effect     | Clean restart + health check                       |
+| Problem | First place to inspect |
+| ------- | ---------------------- |
+| Wrong/unavailable tool name | Provider response parsing and replay serialization |
+| Tool ran but assistant stayed empty | Follow-up message schema and agent-loop boundary |
+| Unit tests pass but OpenCode fails | Real `opencode run --format json` path |
+| Session looks incomplete | `session_info` + `session_read` + proxy logs |
+| Proxy changes not taking effect | Clean restart + health check |
 
 ## Minimal Success Criteria
 
