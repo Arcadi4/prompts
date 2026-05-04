@@ -98,6 +98,22 @@ The user signals either a **closed set** ("this list is complete") or an **open 
 
 Check for the signal, not the format. "But the user used commas" is pattern-matching syntax, not interpreting intent.
 
+### Conflicting Signals (Multiple Stakeholders)
+
+When a single query contains **conflicting signals from different stakeholders** (e.g., one person says "for example X, Y, etc." and another says "scope to X only"), the enumeration scope is constrained by the **primary requester's directive**, not by treating all input as equal examples to generalize from.
+
+**Resolution hierarchy:**
+
+| Priority | Signal Type | Action |
+|---|---|---|
+| 1 | **Primary requester's closure directive** | Hard boundary. "Scope to what X originally asked for" means revert to X's examples only. |
+| 2 | **Legally-mandated requirements** (GDPR, SOC2, etc.) | Flag as "required but out of scope" — include in a separate section with explicit rationale. Do NOT silently fold into the primary concept. |
+| 3 | **Other stakeholders' openness signals** | Treat as additional context, not additional scope. Acknowledge them, defer them, do not enumerate them into the primary output. |
+
+**The rule:** Enumerate the concept the PRIMARY requester defined. If another stakeholder adds a dimension the primary requester didn't address, that dimension is a **competing scope definition**, not an additional example of the same concept. Document the conflict; don't resolve it by inclusion.
+
+**The test:** If you removed the primary requester's message, would your enumerated cases still make sense? If yes, you've drifted. If your enumeration includes domains the primary requester never mentioned, you've drifted.
+
 ### Abstraction Confidence Gates
 
 | Examples | Confidence | Action |
@@ -195,6 +211,7 @@ Agents resist generalization for predictable reasons. These excuses are wrong:
 | "I'll work through these one at a time" | Enumeration without the concept first = anchor on examples. Abstract, THEN enumerate. |
 | "This is getting complicated — let me scope down" | Concept drift under cognitive load. Re-anchor on the abstraction before touching scope. |
 | "Actually, the user probably just meant X" | Mid-task concept abandonment. If you identified a concept earlier, you need a reason to change it — fatigue is not a reason. |
+| "Compliance/security says this is mandatory, so I must include it" | The question isn't whether the requirement matters. It's whether it belongs in THIS scope, for THIS primary requester. Flag it separately. Don't silently fold a competing dimension into someone else's concept. |
 
 ## Red Flags — Stop and Generalize
 
@@ -206,6 +223,8 @@ Agents resist generalization for predictable reasons. These excuses are wrong:
 - "I'll start broad and narrow down as I go" (You'll narrow to the examples — concept drift.)
 - Losing the concept mid-enumeration and listing concrete implementations instead
 - Returning to example-anchored language after starting with category-anchored language
+- Adding domains from stakeholders other than the primary requester
+- Resolving conflicting stakeholder directives by including everything (over-inclusion is not conflict resolution)
 
 **All of these mean: re-read the user's message. Find the example marker. Climb the ladder.**
 
@@ -223,6 +242,7 @@ Agents resist generalization for predictable reasons. These excuses are wrong:
 | **Over-abstracting when the task is research/clarification** | User says "research agent suites such as X and Y" — you spend 40% of output naming the concept instead of enumerating. The user wants the list. Name the concept briefly, then enumerate. The concept serves the enumeration, not the other way around. |
 | **Applying the skill to direct implementation** | The agent already has enough context to plan without abstraction. Loading the skill adds overhead without improving output. Reserve the skill for tasks where output STRUCTURE matters: docs, plans, research. |
 | Pattern-matching syntax instead of interpreting the signal | "The user used commas, so it must be a sample." Look for the signal, not the format. |
+| **Folding competing scopes into the primary concept** | One stakeholder says "X, Y, etc." and another says "scope to X only." You enumerate X, Y, and Z — silently including what the scope-setter excluded. When multiple people give conflicting directives, enumerate the primary requester's concept. Flag the rest separately. Don't resolve conflict by over-inclusion. |
 
 ## Validation
 
@@ -234,7 +254,7 @@ After generalizing, verify:
 4. **Did I ask for confirmation at the right level?** (The concept, not a yes/no per item)
 5. **Can a reader identify which items the user mentioned?** If yes, restructure by concept.
 6. **Can I generate instances the example didn't give me?** If my concept only produces variations of the original example, I renamed — I didn't find the concept.
-7. **Did my concept stay stable through enumeration?** Re-read your output start to finish. Do the enumerated items still belong to the original concept, or did the concept drift toward concrete implementations? Goal-shifting is the silent failure — you don't notice it unless you audit. If the end of your output answers a different question than the start, you shifted.
+7. **Did my concept stay stable through enumeration?** Re-read your output start to finish. Do the enumerated items still belong to the original concept, or did the concept drift toward concrete implementations? Goal-shifting is the silent failure — you don't notice it unless you audit. If the end of your output answers a different question than the start, you shifted. **Concrete test:** Does every domain in your output trace back to the primary requester's original examples? If you added domains from other people who weren't the primary requester, you drifted. **Concrete test 2:** Remove the primary requester from the conversation. Would your output still make sense? If yes, your concept has detached from the original ask.
 
 ## Example Dialogues
 
