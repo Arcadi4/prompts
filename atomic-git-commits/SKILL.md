@@ -63,6 +63,20 @@ Each commit must be:
 4. **Do not list files changed.** Git already tracks files. "3 files changed, 5 tests added, build passes" is machine output masquerading as a commit message. Forbidden.
 5. **Do not reference plan-internal terminology.** Commits must be self-contained and meaningful in `git log` without external context. Forbidden in commit messages: plan task numbers ("Task 3", "T-14"), wave/phase names ("Wave 2", "Phase 1"), step labels ("Step 4b"), or any language implying the commit is a completion of a planning artifact. If the plan task maps to a persistent issue tracker, reference the ticket ID — not the plan task.
 
+**When to write a body**: The subject alone suffices for most changes. Write a body when the change needs explanation beyond what the subject provides:
+
+| Body needed | No body needed |
+|---|---|
+| Bug fix with non-obvious cause | Typo, formatting, dead code removal |
+| Feature with behavioral implications | Single-line config or dependency bump |
+| Refactor that changes structure (why?) | Self-explanatory rename |
+| Performance improvement (bottleneck? gain?) | Trivial cleanup with clear intent |
+| Workaround or temporary fix (why not proper?) | Subject fully describes the change |
+| Breaking change or migration step | |
+| Change touching 5+ files | |
+
+A single-line body ("Prevents race condition when...") is the middle ground — brief justification without a full narrative. Default to no body; add one when the diff alone doesn't make the intent clear.
+
 ### Adaptive Rules
 
 **Discover the repo's convention before composing a message.** Run `git log --oneline -20` and analyze:
