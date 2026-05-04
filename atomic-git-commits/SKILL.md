@@ -57,7 +57,7 @@ Each commit must be:
 
 ### Message Rules (Non-Negotiable)
 
-1. Subject line max 72 characters. Use an imperative verb after the type prefix: `feat: add login flow`, `fix: prevent race condition in cache`.
+1. Subject line max 72 characters. Use an imperative verb. Match the repo's existing subject format — run `git log --oneline -20` to discover the convention before composing your message. If the repo uses `area: description`, use that; don't impose a `type(area): description` format the repo doesn't use.
 2. For non-trivial commits, always write a body. Never use `-m` — use an editor to write a proper multi-line message.
 3. **The body is for a human reader.** Summarize the change. Note the intention. Justify the decision. Write in natural language — the body tells a story, not a checklist. The body is never a response to a plan task; it describes the change on its own terms.
 4. **Do not list files changed.** Git already tracks files. "3 files changed, 5 tests added, build passes" is machine output masquerading as a commit message. Forbidden.
@@ -65,12 +65,30 @@ Each commit must be:
 
 ### Adaptive Rules
 
-Match repository conventions. If none, choose consistently:
+**Discover the repo's convention before composing a message.** Run `git log --oneline -20` and analyze:
 
-- Capitalization, trailing period, scope usage
-- Never use a commit type as a scope — `fix(perf):` is invalid; use `perf:` directly
-- Commit types: feat, fix, docs, style, refactor, test, chore, perf, ci
-- Start the subject (after type prefix) with an imperative verb: `feat: add` not `feat: feature`
+1. **Prefix format**: What comes before the colon? Conventional types (`feat:`, `fix:`)? Skill or module names (`auth:`, `ui:`)? No prefix at all? Copy the pattern exactly. If the repo uses `skill-name: summary`, use that — not `type(skill-name): summary`.
+
+2. **Capitalization and punctuation**: Sentence case (`Add login flow`) or lowercase (`add login flow`)? Trailing period or not?
+
+3. **Scope usage**: Are parenthesized scopes used (`feat(auth):`)? If so, what scopes exist? Never invent new ones.
+
+4. **Subject length**: Spot-check existing subjects — all should be ≤ 72 chars. Yours must be too.
+
+**If the repo has no commit history**, choose one convention and apply it consistently:
+
+- Conventional Commits (`type(scope): summary`) with types: feat, fix, docs, style, refactor, test, chore, perf, ci
+- Or a plain prefix (`area: summary`) where area = skill name, module, component
+- **Never** nest a commit type inside a scope: `fix(perf):` is invalid — the scope names a module, not another type
+- Start the subject (after any prefix) with an imperative verb: `feat: add` not `feat: feature`
+
+### Before You Commit
+
+Run these checks before finalizing:
+
+1. `git log --oneline -5` — does your subject format match existing commits?
+2. Measure subject length — is it ≤ 72 characters?
+3. Read the body aloud — does it read as natural language, not a checklist or plan completion?
 
 ## Practical Techniques
 
