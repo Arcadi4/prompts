@@ -111,7 +111,7 @@ Gate commit on subject length:
 subject="your subject"; [ ${#subject} -le 72 ] && git commit -m "$subject" -m "$body" || { echo "Subject too long: ${#subject} chars (max 72)"; exit 1; }
 ```
 
-Each `-m` adds a paragraph to the body. If the subject exceeds 72 chars, the commit is blocked and the length is printed. Use this command template well, do not try to count the characters by yourself, if reject, immediately shorten the subject and try again until it passes.
+Each `-m` adds a paragraph to the body. If the subject exceeds 72 chars, the commit is blocked and the length is printed. Use this command template well, never count the characters by yourself, this is inefficient and never works. If the command rejects, immediately iterate on the subject until it passes. Even during iteration, you should not be counting characters by yourself.
 
 ## Practical Techniques
 
@@ -197,6 +197,7 @@ During active P1 outages, land the minimal fix first. Clean up history in a foll
 | Listing changed files in the commit body | Git already tracks files. "3 files changed, 5 tests added" is noise. Use body to summarize the change and explain the intention in natural language |
 | Referencing plan task numbers in commit messages | Describe the change itself, not the planning artifact. "Implements task 4" is meaningless in `git log`. Write messages that stand alone without external context. Forbidden: task numbers, wave names, phase labels, step IDs |
 | Weak commit titles without a verb | Start descriptions after the type prefix with an action: `add`, `fix`, `update`, `remove`, `refactor`, `extract` |
+| Attempting to count characters manually | Use the length gate command to enforce ≤ 72 chars, never try to count by yourself |
 
 ## Appendix: Commit Types
 
