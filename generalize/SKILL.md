@@ -1,5 +1,5 @@
 ---
-name: generalizing-from-examples
+name: generalize
 description: Use when a user provides examples prefixed by "for example", "such as", "e.g.", "like", or ends a list with "etc." / "and so on". For architecture/design tasks, abstract first to identify the concept, then enumerate. For research/clarification tasks, enumerate first — the concept organizes the output but the list is the deliverable. Most valuable for documentation, planning, and research; less necessary for direct implementation with sufficient domain context.
 license: CC-BY-SA-4.0
 ---
