@@ -140,13 +140,11 @@ git rebase -i HEAD~5
 **Safe**: On local branches, before pushing, before PR.
 **Unsafe**: Rewriting history others have already pulled. Never force-push to main/master.
 
-### Renaming Files (`git mv`)
+### File Moves and Renames
 
-```bash
-git mv old-name.ts new-name.ts
-```
+When moving or renaming a file, the deletion (old path) and addition (new path) must be in the same commit. Git detects the rename and preserves file history. Splitting them across separate commits breaks rename detection and loses lineage.
 
-Include the deletion and addition in the same commit so git detects the rename. `git mv` is simplest, but manually staging both old (deleted) and new (added) in one commit works too. Deleting the old file and adding the new one in separate commits breaks history.
+`git mv old-path new-path` handles this automatically. Manually staging the deleted old file and added new file in one commit works equally well.
 
 ## WIP Strategy
 
