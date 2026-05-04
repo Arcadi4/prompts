@@ -101,7 +101,7 @@ A single-line body ("Prevents race condition when...") is the middle ground — 
 Run these checks before finalizing:
 
 1. `git log --oneline -5` — does your subject format match existing commits?
-2. Measure subject length — is it ≤ 72 characters?
+2. Always use the length gate to enforce ≤ 72 chars. Also, do not count characters by yourself.
 3. Is the subject formal? No conversational "X, not Y", "let's X", "make X better". Use a single precise verb.
 4. Read the body aloud — does it read as natural language, not a checklist or plan completion?
 
@@ -111,7 +111,7 @@ Gate commit on subject length:
 subject="your subject"; [ ${#subject} -le 72 ] && git commit -m "$subject" -m "$body" || { echo "Subject too long: ${#subject} chars (max 72)"; exit 1; }
 ```
 
-Each `-m` adds a paragraph to the body. If the subject exceeds 72 chars, the commit is blocked and the length is printed.
+Each `-m` adds a paragraph to the body. If the subject exceeds 72 chars, the commit is blocked and the length is printed. Use this command template well, do not try to count the characters by yourself, if reject, immediately shorten the subject and try again until it passes.
 
 ## Practical Techniques
 
