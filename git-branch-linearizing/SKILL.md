@@ -1,6 +1,7 @@
 ---
 name: git-branch-linearizing
 description: Use when linearizing a git branch that has merge commits, flattening topological history into a single linear chain, removing merge commits while preserving all work and the final tree state. Triggers on "linearize", "flatten history", "remove merge commits", "rebase to linear", "squash merges out of history".
+license: CC-BY-NC-4.0
 ---
 
 # Git Branch Linearizing

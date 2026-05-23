@@ -1,6 +1,7 @@
 ---
 name: opencode-cli
 description: opencode CLI (anomalyco/opencode) comprehensive reference for the TUI, headless server, ACP server, web UI, sessions, agents, MCP servers, providers/auth, models, plugins, GitHub agent integration, stats, export/import, and debugging utilities from the command line. Includes guidance on which commands launch blocking interactive UIs and how to avoid them in scripted contexts.
+license: CC-BY-NC-4.0
 ---
 
 # opencode CLI

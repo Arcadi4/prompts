@@ -1,6 +1,7 @@
 ---
 name: modulize-skill
 description: Use when a SKILL.md exceeds ~200 lines, has appendix-like reference sections (API tables, command listings, extended examples) that distract from the main workflow, or contains content only relevant in specific conditions (per-scale, per-platform, per-mode) — making agents load irrelevant material for every invocation
+license: CC-BY-NC-4.0
 ---
 
 # Modulize Skill

@@ -1,6 +1,7 @@
 ---
 name: git-cc
 description: git-cc CLI (SKalt/git-cc) reference for writing and validating Conventional Commits as a git extension - covers the `git cc` invocation, message validation, dry-run, config file shape (commit_convention.{yaml,yml,toml}), pass-through flags to `git commit`, and which forms launch a blocking TUI vs which are safe in scripts. Includes a compact Conventional Commits format reference.
+license: CC-BY-NC-4.0
 ---
 
 # git-cc
